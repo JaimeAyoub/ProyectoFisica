@@ -1,6 +1,6 @@
 class Collisions {
 
-  
+
   Collisions() {
   }
 
@@ -25,12 +25,26 @@ class Collisions {
   boolean CheckColissionsCuadrado(PVector position1, float width1, float height1, PVector position2, float width2, float height2) {
     // Verificar si los rectángulos no se superponen en el eje X o en el eje Y
     if ((position1.x + width1 < position2.x) || // Rectángulo 1 está a la izquierda de Rectángulo 2
-        (position2.x + width2 < position1.x) || // Rectángulo 2 está a la izquierda de Rectángulo 1
-        (position1.y + height1 < position2.y) || // Rectángulo 1 está arriba de Rectángulo 2
-        (position2.y + height2 < position1.y)) { // Rectángulo 2 está arriba de Rectángulo 1
+      (position2.x + width2 < position1.x) || // Rectángulo 2 está a la izquierda de Rectángulo 1
+      (position1.y + height1 < position2.y) || // Rectángulo 1 está arriba de Rectángulo 2
+      (position2.y + height2 < position1.y)) { // Rectángulo 2 está arriba de Rectángulo 1
       return false; // No hay colisión
     } else {
       return true; // Hay colisión
     }
+  }
+  boolean CheckColissionsRecta(PVector p1, PVector p2, PVector q1, PVector q2)
+  {
+
+    PVector A = new PVector(p2.x - p1.x, p2.y - p1.y);
+    PVector B = new PVector(q2.x - q1.x, q2.y - q1.y);
+    PVector C = new PVector(q1.x - p1.x, q1.y - p1.y);
+    
+    float determinante = (-A.x * B.y) + (A.y * B.x);
+    if (determinante == 0) return false;
+    
+    float t = (-B.y * C.x + C.y * B.x) / determinante;
+    float s = (A.x * C.y - A.y * C.x) / determinante;
+    return (s >= 0 && s <= 1 && t >= 0 && t <= 1);
   }
 }

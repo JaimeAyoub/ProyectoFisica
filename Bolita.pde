@@ -44,7 +44,8 @@ class Bolita {
   // Método para aplicar físicas a la bolita
   void PhysicsBolita(float dt) {
     // Actualizar la velocidad en Y y X usando la aceleración y el delta time (dt)
-    velocity.y += acceleration.y * dt * 10;
+
+   velocity.y += acceleration.y * dt * 10;
     velocity.x += acceleration.x * dt * 20;
 
     // Limitar la velocidad en X e Y para que no supere los valores máximos
@@ -70,6 +71,12 @@ class Bolita {
 
   // Método para hacer que la bolita salte
   void Jump() {
+
     velocity.y = -jumpForce;  // Aplicar una fuerza negativa en Y para simular el salto
+  }
+
+  void MovimientoCircular(PVector center, float angle, float radius) {
+    position.x = center.x + cos(angle) * radius;
+    position.y = center.y + sin(angle) * radius;
   }
 }

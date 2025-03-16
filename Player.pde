@@ -10,13 +10,13 @@ class Player {
 
 
 
-  void DrawPlayer()
+  void DrawPlayer(color _color)
   {
     position.x = mouseX;
     position.y = mouseY;
     
    
-    fill(255);
+    fill(_color);
     ellipse(mouseX, mouseY, diameter, diameter);
   }
 }
