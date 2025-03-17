@@ -39,12 +39,30 @@ class Collisions {
     PVector A = new PVector(p2.x - p1.x, p2.y - p1.y);
     PVector B = new PVector(q2.x - q1.x, q2.y - q1.y);
     PVector C = new PVector(q1.x - p1.x, q1.y - p1.y);
-    
+
     float determinante = (-A.x * B.y) + (A.y * B.x);
     if (determinante == 0) return false;
-    
+
     float t = (-B.y * C.x + C.y * B.x) / determinante;
     float s = (A.x * C.y - A.y * C.x) / determinante;
     return (s >= 0 && s <= 1 && t >= 0 && t <= 1);
+  }
+
+  void Momentum(Bolita b1, Bolita b2)
+  {
+    PVector RestaV = PVector.sub(b1.velocity, b2.velocity);
+    PVector RestaR = PVector.sub(b1.position, b2.position);
+    float PuntoV = PVector.dot(RestaV, RestaR);  // Producto escalar
+    float NormaR2 = RestaR.magSq();  // Magnitud cuadrada del vector distancia
+
+    if (NormaR2 != 0) {  // Evitar división por cero
+      float factor1 = (2 * b2.mass) / (b1.mass + b2.mass) * (PuntoV / NormaR2);
+      PVector correccion1 = RestaR.copy().mult(factor1);
+      b1.velocity.sub(correccion1);
+
+      float factor2 = (2 * b1.mass) / (b1.mass + b2.mass) * (PuntoV / NormaR2);
+      PVector correccion2 = RestaR.copy().mult(factor2);
+      b2.velocity.add(correccion2);
+    }
   }
 }

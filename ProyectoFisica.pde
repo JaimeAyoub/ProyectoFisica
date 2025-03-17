@@ -48,9 +48,9 @@ void setup()
   posRecta3.y = height;
 
   bolMovimientoC = new Bolita(width, height, 10, 50, width/2, height/2, 20);
-  bolMovimientoC2 = new Bolita(width, height, 10, 10, width/2, height/2, 20);
+  bolMovimientoC2 = new Bolita(width, height, 50, 10, width/2 + 10, height/2 -200, 20);
   colisiones = new Collisions(); //Creamos nuestra colsion
-  bolitas.add(new Bolita(width, height, 20, 100, width/2, height/2, 20)); //Creamos la primera bolita del array de bolitas, su constructor es: ancho,alto, radio, masa ,
+  //bolitas.add(new Bolita(width, height, 20, 100, width/2, height/2, 20)); //Creamos la primera bolita del array de bolitas, su constructor es: ancho,alto, radio, masa ,
   // y posicion en x y Y en donde quieres que aparezca la bolita.
 
   cuadrado1 = new Cuadrados( 20, 20);  //Constructor de nuestros cuadrados, estos reciben el ancho y alto que queramos del cuadrado.
@@ -61,9 +61,10 @@ void setup()
 
 void draw()
 {
+
   posRecta2.x = mouseX;
   posRecta2.y = mouseY;
-    posRecta4.x = mouseX +200;
+  posRecta4.x = mouseX +200;
   posRecta4.y = mouseY + 200;
   float t=millis();
   float frames = int( abs( -90*sin(0.0000001*t) + 10*sin(0.000002*t) + 20*sin(0.00002*t) - 20*cos(0.0003*t) )) + 10;
@@ -77,12 +78,12 @@ void draw()
   stroke(200);
   line(posRecta2.x, posRecta2.y, mouseX+200, mouseY+200);
 
-  if (colisiones.CheckColissionsRecta(posRecta1,posRecta3,posRecta2,posRecta4))
+  if (colisiones.CheckColissionsRecta(posRecta1, posRecta3, posRecta2, posRecta4))
   {
     println("Colision entre recta");
   }
-  
-    GM.GameLoop();        //Llamamos nuestro GameLoop, el cual se encarga de que cuando una bola toque el suelo, pierda
+
+  GM.GameLoop();        //Llamamos nuestro GameLoop, el cual se encarga de que cuando una bola toque el suelo, pierda
   GM.DrawScore(20);    //Llamamos nuestra funcion de escribir el score, este recibe el tamaño del texto que uno desee.
   if (isClicked)
   {
@@ -93,7 +94,7 @@ void draw()
     ColorPlayer =  color (255, 255, 255);
   }
 
-  player.DrawPlayer(ColorPlayer);  //Dibujamos a nuestro jugador.
+  //player.DrawPlayer(ColorPlayer);  //Dibujamos a nuestro jugador.
 
   for (Bolita bol : bolitas ) //For each para recorrer nuestro arraylist de bolitas
   {
@@ -101,6 +102,8 @@ void draw()
       isClicked && !GM.isOver ) //Checamos si alguna de las bolitas es clickeada por nuestro jugador.
     {
       bol.Jump();
+
+
 
       ColorBolita1 = color(random(255), random(255), random(255)); //Cuando una bolita es clickeada, esta cambia su color a uno aleatorio.
 
@@ -119,13 +122,18 @@ void draw()
     ColorCuad = color(255, 255, 255);
   }
 
+  if (colisiones.CheckColissionsCirculo(bolMovimientoC.position, bolMovimientoC2.position, bolMovimientoC.radius, bolMovimientoC2.radius))
+  {
+    colisiones.Momentum(bolMovimientoC, bolMovimientoC2) ;
+  }
 
-  //bolMovimientoC.PhysicsBolita(dt);
+  bolMovimientoC.PhysicsBolita(dt);
   bolMovimientoC.DrawBolita(ColorBolita1);
-  //bolMovimientoC2.PhysicsBolita(dt);
+  bolMovimientoC2.PhysicsBolita(dt);
+
   bolMovimientoC2.DrawBolita(ColorBolita1);
-  bolMovimientoC2.MovimientoCircular( bolMovimientoC.position, angle+=0.01f, 250);
-  cuadrado1.DrawCuadrado(mouseX, mouseY, ColorCuad); //Uno de los cuadrados igual se dibujara en la posicion del mouse.
+  //bolMovimientoC2.MovimientoCircular( bolMovimientoC.position, angle+=0.01f, 250);
+  // cuadrado1.DrawCuadrado(mouseX, mouseY, ColorCuad); //Uno de los cuadrados igual se dibujara en la posicion del mouse.
   cuadrado2.DrawCuadrado(500, 400, ColorCuad);  //El otro solo esta en esa posicion.
   for (Bolita bol : bolitas )  //For each para dibujar cada bolita y su funcion de fisicas.
   {

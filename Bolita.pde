@@ -45,8 +45,8 @@ class Bolita {
   void PhysicsBolita(float dt) {
     // Actualizar la velocidad en Y y X usando la aceleración y el delta time (dt)
 
-   velocity.y += acceleration.y * dt * 10;
-    velocity.x += acceleration.x * dt * 20;
+    velocity.y += acceleration.y * dt * 10;
+    //velocity.x += acceleration.x * dt * 20;
 
     // Limitar la velocidad en X e Y para que no supere los valores máximos
     velocity.x = constrain(velocity.x, -maxSpeedX, maxSpeedX);
