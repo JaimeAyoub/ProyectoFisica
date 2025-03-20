@@ -50,7 +50,7 @@ class Collisions {
     float t = (-B.y * C.x + C.y * B.x) / determinante; //sacamos T
     float s = (A.x * C.y - A.y * C.x) / determinante;  //sacamos S
     return (s >= 0 && s <= 1 && t >= 0 && t <= 1); //y como se nos dijo en clase, si t o s es mayor que 1,
-    //Significa que no hay colision.
+    //Significa que  hay colision.
   }
 
   void Momentum(Bolita b1, Bolita b2) //Funcion para formula de conservacion de movimiento
@@ -77,7 +77,8 @@ class Collisions {
       PVector correccion1 = RestaR.copy().mult(factor1); //usamos el copy, esto hace una copia del vector que estamos restando sin afectar al original
       b1.velocity.sub(correccion1);//Por ultimo le restamos al vector velocidad 1 todo lo anterior
 
-      float factor2 = (2 * b1.mass) / (b1.mass + b2.mass) * (PuntoV2 / NormaR2V); //Esto es casi lo mismo, solo que se cambia la masa de arriba y usamos las otras operaciones.
+      float factor2 = (2 * b1.mass) / (b1.mass + b2.mass) * (PuntoV2 / NormaR2V); //Esto es casi lo mismo, solo que se cambia la masa de arriba
+                                                                                    //y usamos las otras operaciones.
       PVector correccion2 = RestaR2.copy().mult(factor2);
       b2.velocity.sub(correccion2);
     }

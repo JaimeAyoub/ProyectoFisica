@@ -94,7 +94,6 @@ void draw()
   GM.DrawScore(20);    //Llamamos nuestra funcion de escribir el score, este recibe el tamaño del texto que uno desee.
   if (isClicked)
   {
-
     ColorPlayer =  color (0, 0, 0);
   } else
   {

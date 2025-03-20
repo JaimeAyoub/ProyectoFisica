@@ -9,7 +9,9 @@ class Bolita {
   PVector acceleration = new PVector();  // Aceleración en los ejes x e y
 
   // Variables para físicas
-  float gravity = 9.81*100/(60*60 );  // Gravedad convertida a pixeles, en donde 100 px equivale a 1 metro, 60 es por fps,se quizo usar el frameRate, pero hacia le juego injugable
+  float gravity = 9.81*100/(60*60 );  // Gravedad convertida a pixeles, 
+                                      //en donde 100 px equivale a 1 metro, 60 es por fps,
+                                      //se quizo usar el frameRate, pero hacia le juego injugable
   float ForceY;  // Fuerza en el eje Y (calculada como masa * gravedad)
   float mass;  // Masa de la bolita
   float maxSpeedX = 500;  // Velocidad máxima en el eje X
@@ -76,7 +78,8 @@ class Bolita {
   }
 
   void MovimientoCircular(PVector center, float angle, float radius) { //Funcion para movimiento Circular
-                                                                       //el center es el del objeto en donde se quiere obtener el movimiento alrededor de el
+                                                                       //el center es el del objeto en donde
+                                                                       //se quiere obtener el movimiento alrededor de el
     position.x = center.x + cos(angle) * radius;
     position.y = center.y + sin(angle) * radius;
   }
