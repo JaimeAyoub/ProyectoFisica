@@ -9,12 +9,12 @@ class Bolita {
   PVector acceleration = new PVector();  // Aceleración en los ejes x e y
 
   // Variables para físicas
-  float gravity = abs(9.81);  // Gravedad (valor absoluto para asegurar que sea positivo)
+  float gravity = 9.81*100/(60*60 );  // Gravedad convertida a pixeles, en donde 100 px equivale a 1 metro, 60 es por fps,se quizo usar el frameRate, pero hacia le juego injugable
   float ForceY;  // Fuerza en el eje Y (calculada como masa * gravedad)
   float mass;  // Masa de la bolita
   float maxSpeedX = 500;  // Velocidad máxima en el eje X
   float maxSpeedY = 1000;  // Velocidad máxima en el eje Y
-  float jumpForce = 900;  // Fuerza de salto aplicada en el eje Y
+  float jumpForce = 300;  // Fuerza de salto aplicada en el eje Y
   // Tamaño de la pantalla y delta Time
   float ancho, alto;  // Ancho y alto de la pantalla
 
@@ -45,8 +45,8 @@ class Bolita {
   void PhysicsBolita(float dt) {
     // Actualizar la velocidad en Y y X usando la aceleración y el delta time (dt)
 
-    velocity.y += acceleration.y * dt * 10;
-    //velocity.x += acceleration.x * dt * 20;
+    velocity.y += acceleration.y * dt;
+    velocity.x += acceleration.x * dt;
 
     // Limitar la velocidad en X e Y para que no supere los valores máximos
     velocity.x = constrain(velocity.x, -maxSpeedX, maxSpeedX);
@@ -75,7 +75,8 @@ class Bolita {
     velocity.y = -jumpForce;  // Aplicar una fuerza negativa en Y para simular el salto
   }
 
-  void MovimientoCircular(PVector center, float angle, float radius) {
+  void MovimientoCircular(PVector center, float angle, float radius) { //Funcion para movimiento Circular
+                                                                       //el center es el del objeto en donde se quiere obtener el movimiento alrededor de el
     position.x = center.x + cos(angle) * radius;
     position.y = center.y + sin(angle) * radius;
   }
